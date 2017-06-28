@@ -26,13 +26,11 @@ app.route('GET', '/ping', (req, res, ctx) => {
 });
 
 app.route('GET', '/health', (req, res, ctx) => {
-  got.stream.get('https://registry.npmjs.org').on('error', (error) => {
-    ctx.send(500, error);
-  }).pipe(res);
+  got.stream.get('https://registry.npmjs.org').on('error', error => ctx.send(500, error)).pipe(res);
 });
 
-app.route('POST', '/xxx', (req, res, ctx) => {
-  ctx.send(500, 'Not implemented.');
+app.route('GET', '/package/*', (req, res, ctx) => {
+  ctx.send(200, ctx.params.wildcard);
 });
 
 app.route('default', (req, res, ctx) => {
