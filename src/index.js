@@ -30,7 +30,7 @@ app.route('GET', '/health', (req, res, ctx) => {
 });
 
 app.route('GET', '/package/*', (req, res, ctx) => {
-  ctx.send(200, ctx.params.wildcard);
+  ctx.send(500, ctx.params.wildcard);
 });
 
 app.route('default', (req, res, ctx) => {
