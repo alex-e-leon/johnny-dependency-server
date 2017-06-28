@@ -1,0 +1,25 @@
+{
+  "name": "johnny-dependency-server",
+  "version": "0.0.0",
+  "description": "Visualize your deps!",
+  "main": "src/index.js",
+  "repository": "git@github.com:domain-group/johnny-dependency-server.git",
+  "author": " ",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon ./src/index.js | pino-colada",
+    "lint": "eslint --init"
+  },
+  "dependencies": {
+    "merry": "^5.3.1",
+    "nodemon": "^1.11.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.0.1",
+    "eslint-plugin-import": "^2.6.0",
+    "eslint-plugin-jsx-a11y": "^5.1.0",
+    "eslint-plugin-react": "^7.1.0",
+    "pino-colada": "^1.4.0"
+  }
+}
