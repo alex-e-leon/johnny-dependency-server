@@ -11,10 +11,13 @@
     "lint": "eslint --init"
   },
   "dependencies": {
+    "bankai": "^8.1.1",
+    "bel": "^5.0.1",
     "got": "^7.0.0",
     "json-stream-to-object": "^1.1.0",
     "merry": "^5.3.1",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "sheetify": "^6.1.0"
   },
   "devDependencies": {
     "eslint": "^3.19.0",

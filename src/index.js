@@ -1,11 +1,20 @@
 const merry = require('merry');
 const got = require('got');
+const bankai = require('bankai');
 
 const app = merry();
+const assets = bankai('./src/components/index.js', {});
 
-app.route('GET', '/', (req, res, ctx) => {
-  ctx.log.info('oh hey, a request here');
-  ctx.send(200, { cute: 'butts' });
+app.route('GET', '/', (req, res) => {
+  assets.html().pipe(res);
+});
+
+app.route('GET', '/bundle.css', (req, res) => {
+  assets.css().pipe(res);
+});
+
+app.route('GET', '/bundle.js', (req, res) => {
+  assets.js().pipe(res);
 });
 
 app.route('GET', '/favicon.ico', (req, res, ctx) => {
@@ -20,6 +29,10 @@ app.route('GET', '/health', (req, res, ctx) => {
   got.stream.get('https://registry.npmjs.org').on('error', (error) => {
     ctx.send(500, error);
   }).pipe(res);
+});
+
+app.route('POST', '/xxx', (req, res, ctx) => {
+  ctx.send(500, 'Not implemented.');
 });
 
 app.route('default', (req, res, ctx) => {
