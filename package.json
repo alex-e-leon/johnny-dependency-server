@@ -7,10 +7,11 @@
   "author": " ",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon ./src/index.js | pino-colada",
+    "start": "nodemon ./src/index.js | merry",
     "lint": "eslint --init"
   },
   "dependencies": {
+    "got": "^7.0.0",
     "json-stream-to-object": "^1.1.0",
     "merry": "^5.3.1",
     "nodemon": "^1.11.0"
@@ -20,7 +21,6 @@
     "eslint-config-airbnb": "^15.0.1",
     "eslint-plugin-import": "^2.6.0",
     "eslint-plugin-jsx-a11y": "^5.1.0",
-    "eslint-plugin-react": "^7.1.0",
-    "pino-colada": "^1.4.0"
+    "eslint-plugin-react": "^7.1.0"
   }
 }

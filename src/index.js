@@ -1,4 +1,5 @@
 const merry = require('merry');
+const got = require('got');
 
 const app = merry();
 
@@ -9,6 +10,16 @@ app.route('GET', '/', (req, res, ctx) => {
 
 app.route('GET', '/favicon.ico', (req, res, ctx) => {
   ctx.send(404, ' ', { 'Content-Type': 'text/plain' });
+});
+
+app.route('GET', '/ping', (req, res, ctx) => {
+  ctx.send(200, 'pong', { 'Content-Type': 'text/plain' });
+});
+
+app.route('GET', '/health', (req, res, ctx) => {
+  got.stream.get('https://registry.npmjs.org').on('error', (error) => {
+    ctx.send(500, error);
+  }).pipe(res);
 });
 
 app.route('default', (req, res, ctx) => {
