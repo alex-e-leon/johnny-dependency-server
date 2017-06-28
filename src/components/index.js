@@ -8,10 +8,6 @@ const prefix = css`
 
 css('./styles.css');
 
-if (process.env.NODE_ENV !== 'production') {
-  window.alert('not in production!');
-}
-
 const el = html`
   <section class=${prefix}>
     <h1>hello planet</h1>

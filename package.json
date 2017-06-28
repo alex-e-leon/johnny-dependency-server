@@ -8,7 +8,8 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon ./src/index.js | merry",
-    "lint": "eslint --init"
+    "lint": "eslint ./src ./test",
+    "test": "ava --verbose && yarn run lint"
   },
   "dependencies": {
     "bankai": "^8.1.1",
@@ -20,10 +21,15 @@
     "sheetify": "^6.1.0"
   },
   "devDependencies": {
+    "ava": "^0.19.1",
+    "dev-null": "^0.1.1",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.1",
+    "eslint-plugin-ava": "^4.2.1",
     "eslint-plugin-import": "^2.6.0",
     "eslint-plugin-jsx-a11y": "^5.1.0",
-    "eslint-plugin-react": "^7.1.0"
+    "eslint-plugin-react": "^7.1.0",
+    "get-server-port": "^1.0.0",
+    "nock": "^9.0.13"
   }
 }
