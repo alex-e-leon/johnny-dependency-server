@@ -21,15 +21,17 @@ function performGet(t, input) {
   });
 }
 
-test('/ping should return pong with 200', t => performGet(t, '/ping').then((res) => {
+test('/ping should return pong with 200', async (t) => {
+  const res = await performGet(t, '/ping');
   t.is(res.body, 'pong');
   t.is(res.statusCode, 200);
-}));
+});
 
-test('garbage url should return 404', t => performGet(t, '/broken-url').catch((err) => {
-  t.is(err.response.body, 'Page not found.');
-  t.is(err.response.statusCode, 404);
-}));
+test('garbage url should return 404', async (t) => {
+  const error = await t.throws(performGet(t, '/broken-url'));
+  t.is(error.response.body, 'Page not found.');
+  t.is(error.response.statusCode, 404);
+});
 
 test('/health should return npm stats when healthy', async (t) => {
   const sampleNpmResponse = '{"db_name":"registry","doc_count":606177,"doc_del_count":348,"update_seq":637' +
@@ -49,6 +51,21 @@ test('/health should return a 500 when npm is not healthy', async (t) => {
 
   const error = await t.throws(performGet(t, '/health'));
   t.is(error.response.statusCode, 500);
+});
+
+test('/bundle.css should return a 200', async (t) => {
+  const res = await performGet(t, '/bundle.css');
+  t.is(res.statusCode, 200);
+});
+
+test('/bundle.js should return a 200', async (t) => {
+  const res = await performGet(t, '/bundle.js');
+  t.is(res.statusCode, 200);
+});
+
+test("/favicon.ico should return a 404 because we dont't have one yet", async (t) => {
+  const error = await t.throws(performGet(t, '/favicon.ico'));
+  t.is(error.response.statusCode, 404);
 });
 
 test.todo('/package/@domain-group/fe-button should return 200 with proper data');
