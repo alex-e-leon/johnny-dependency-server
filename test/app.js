@@ -68,6 +68,11 @@ test("/favicon.ico should return a 404 because we dont't have one yet", async (t
   t.is(error.response.statusCode, 404);
 });
 
+test('/ should return some random html and a 200, for now', async (t) => {
+  const response = await performGet(t, '/');
+  t.is(response.statusCode, 200);
+});
+
 test.todo('/package/@domain-group/fe-button should return 200 with proper data');
 test.todo('/package/express should return 200 with proper data');
 test.todo('/package/some-invalid-package should return 400');
