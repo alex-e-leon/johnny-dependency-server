@@ -9,7 +9,7 @@
   "scripts": {
     "start": "nodemon ./src/index.js | merry",
     "lint": "eslint ./src ./test",
-    "test": "ava --verbose && yarn run lint"
+    "test": "nyc ava --verbose && yarn run lint"
   },
   "dependencies": {
     "bankai": "^8.1.1",
@@ -30,6 +30,7 @@
     "eslint-plugin-jsx-a11y": "^5.1.0",
     "eslint-plugin-react": "^7.1.0",
     "get-server-port": "^1.0.0",
-    "nock": "^9.0.13"
+    "nock": "^9.0.13",
+    "nyc": "^11.0.3"
   }
 }
