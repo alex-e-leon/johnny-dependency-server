@@ -8,23 +8,18 @@ var tree = createTree();
 
 const containerClass = css`
   :host {
-    top: 0;
-    left: 0;
-    position: absolute;
-    display: table;
+    display: flex;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.1);
-    border: solid 1px rgba(255, 255, 255, 0.18);
   }
 `;
 
 const graphClass = css`
   :host {
     fill: white;
-    display: table-cell;
-    width: 70%;
-    vertical-align: top;
+    flex: 1 1 auto;
+    padding: 20px;
     font-size: 18px;
     font-weight: 600;
   }

@@ -1,3 +1,11 @@
 body {
-	background-image: linear-gradient(240deg, #30456a, #07142c);
+  background-image: linear-gradient(240deg, #30456a, #07142c);
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+html {
+  height: 100%;
+  width: 100%;
 }
