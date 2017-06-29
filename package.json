@@ -20,6 +20,7 @@
     "bel": "^5.0.1",
     "choo": "yoshuawuyts/choo#v6",
     "choo-log": "^6.1.2",
+    "cssnano": "^3.10.0",
     "d3": "^4.9.1",
     "dotenv-safe": "^4.0.4",
     "got": "^7.0.0",
@@ -31,7 +32,12 @@
     "nodemon": "^1.11.0",
     "npm-package-arg": "^5.1.2",
     "pino": "^4.6.0",
-    "sheetify": "^6.1.0"
+    "postcss-cssnext": "^2.11.0",
+    "postcss-import": "^10.0.0",
+    "postcss-reporter": "^4.0.0",
+    "postcss-url": "^7.0.0",
+    "sheetify": "^6.1.0",
+    "sheetify-postcss": "github:BarryThePenguin/sheetify-postcss#postcss-load-config"
   },
   "devDependencies": {
     "ava": "^0.20.0",

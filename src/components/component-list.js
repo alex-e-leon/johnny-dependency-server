@@ -32,12 +32,21 @@ function componentList(components, activeComponent, emit) {
   return html`
     <div class="johnny-depp__list-container">
       <img class="johnny-depp__logo" src="/static/img/jd_logo.png"/>
-      <h1 class="johnny-depp__title">Components</h1>
+      <form name="search" onsubmit="${handleSubmit}">
+        <input name="packageName" />
+      </form>
+      <h1 class="johnny-depp__title">All Components</h1>
       <ul class="johnny-depp__list">
         ${componentsItems}
       </ul>
     </div>
   `;
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    emit('getComponent', event.target.elements.packageName.value);
+  }
 
   function changeComponent(index) {
     return function () {

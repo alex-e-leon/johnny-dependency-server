@@ -8,7 +8,13 @@ const lru = require('lru-cache');
 module.exports = options => {
   const app = merry(options);
   const cache = lru({max: 50000});
-  const assets = bankai('./src/components/index.js', {debug: true, watch: true});
+  const assets = bankai('./src/components/index.js', {
+    debug: true,
+    watch: true,
+    css: {
+      use: ['sheetify-postcss']
+    }
+  });
 
   assets.on('js-bundle', function () {
     app.log.info('bundle:js');

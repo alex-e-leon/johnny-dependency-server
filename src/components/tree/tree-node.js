@@ -16,8 +16,54 @@ const d3Link = d3.linkHorizontal()
 
 const linkClass = css`
   :host {
-    stroke: white;
     fill: none;
+    stroke-width: 1.5px;
+    stroke: var(--white);
+
+    &.is-major-update {
+      stroke: var(--red);
+    }
+    &.is-latest {
+      stroke: var(--green);
+    }
+
+    &.is-minor-update,
+    &.is-patch-update {
+      stroke: var(--yellow);
+    }
+  }
+`;
+
+const nodeClass = css`
+  :host {
+    circle {
+      fill: var(--white);
+      stroke-width: 0px;
+    }
+
+    &.has-children circle {
+      cursor: pointer;
+      stroke-width: 8px;
+      &:focus,
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    &.is-major-update circle {
+      fill: var(--red);
+      stroke: var(--redLight);
+    }
+    &.is-latest circle {
+      fill: var(--green);
+      stroke: var(--greenLight);
+    }
+
+    &.is-minor-update circle,
+    &.is-patch-update circle {
+      fill: var(--yellow);
+      stroke: var(--yellowLight);
+    }
   }
 `;
 
@@ -73,7 +119,7 @@ function createComponent() {
     const nodeElement = html`
       <g
         transform="translate(${node.y} ,${node.x})"
-        class="node is-${status} ${hasChildren ? ' has-children' : ''}"
+        class="${nodeClass} is-${status} ${hasChildren ? ' has-children' : ''}"
       >
         <circle r="4.5" onclick="${hideNode}"/>
         <text x="${showChildren ? -10 : 10}" dy=".35em" textAnchor="${showChildren ? 'end' : 'start'}" fillOpacity="1">

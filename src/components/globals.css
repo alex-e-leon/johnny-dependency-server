@@ -8,12 +8,11 @@ html {
   box-sizing: inherit;
 }
 
-
 body {
   font-size: 16px;
   line-height: 21px;
   font-family: "Source Sans Pro", sans-serif;
-  color: #fff;
+  color: var(--white);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

@@ -13,6 +13,7 @@ const app = choo();
 app.use(log());
 app.use(dependencyStore);
 app.route('/', johnnyDependency);
+app.route('/package/*', johnnyDependency);
 app.mount('body');
 
 function dependencyStore(state, emitter) {
@@ -20,17 +21,22 @@ function dependencyStore(state, emitter) {
   state.components = fixture.componentList.build().components;
   state.activeComponent = 0;
 
-  emitter.on('addDependency', function (count) {
+  state.events.ADDDEPENDENCY = 'addDependency';
+  state.events.GETCOMPONENT = 'getComponent';
+  state.events.CHANGECOMPONENT = 'changeComponent';
+  state.events.HIDENODE = 'hideNode';
+
+  emitter.on(state.events.ADDDEPENDENCY, function (count) {
     state.count += count;
     emitter.emit('render');
   });
 
-  emitter.on('changeComponent', function (component) {
+  emitter.on(state.events.CHANGECOMPONENT, function (component) {
     state.activeComponent = component;
     emitter.emit('render');
   });
 
-  emitter.on('hideNode', function (node) {
+  emitter.on(state.events.HIDENODE, function (node) {
     const path = [node.data.id];
     let currNode = node;
 
@@ -54,5 +60,21 @@ function dependencyStore(state, emitter) {
     }
 
     emitter.emit('render');
+  });
+
+  emitter.on(state.events.PUSHSTATE, function (route) {
+    if (route.startsWith('/package')) {
+      fetch(`${route}`)
+      .then(res => res.json())
+      .then(res => {
+        state.components = [res];
+        state.activeComponent = 0;
+        emitter.emit('render');
+      });
+    }
+  });
+
+  emitter.on(state.events.GETCOMPONENT, function (packageName) {
+    emitter.emit(state.events.PUSHSTATE, `/package/${packageName}`);
   });
 }
