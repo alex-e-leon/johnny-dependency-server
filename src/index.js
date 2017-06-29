@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV === 'development') {
+  require('dotenv-safe').load();
+}
+
 const createApp = require('./app');
 const logger = require('pino')();
 
@@ -27,6 +31,10 @@ if (cluster.isMaster && process.env.NODE_ENV === 'production') {
     }
   });
 } else {
-  const app = createApp();
+  const options = {
+    logLevel: process.env.NODE_ENV === 'production' ? 'info' : 'debug'
+  };
+
+  const app = createApp(options);
   app.listen(Number(process.env.PORT));
 }

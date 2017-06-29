@@ -1,6 +1,8 @@
 const merry = require('merry');
 const got = require('got');
 const bankai = require('bankai');
+const npa = require('npm-package-arg');
+const johnny = require('johnny-dependency');
 
 module.exports = options => {
   const app = merry(options);
@@ -43,7 +45,24 @@ module.exports = options => {
   });
 
   app.route('GET', '/package/*', (req, res, ctx) => {
-    ctx.send(500, ctx.params.wildcard);
+    try {
+      const pkg = npa(ctx.params.wildcard);
+      ctx.log.debug(`Fetching deps for ${pkg.name}@${pkg.fetchSpec}.`);
+
+      johnny({
+        name: pkg.name,
+        version: pkg.fetchSpec
+      }, {
+        auth: {
+          token: process.env.NPM_AUTH_TOKEN
+        }
+      }).then(deps => {
+        ctx.send(200, deps);
+      });
+    } catch (err) {
+      ctx.log.error(err);
+      ctx.send(500, 'Something went wrong with the request.');
+    }
   });
 
   app.route('default', (req, res, ctx) => {
