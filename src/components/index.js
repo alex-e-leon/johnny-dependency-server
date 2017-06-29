@@ -1,7 +1,12 @@
 const log = require('choo-log');
 const choo = require('choo');
+const css = require('sheetify');
 const fixture = require('./fixture');
 const johnnyDependency = require('./johnny-dependency');
+
+css('./fonts.css');
+css('./globals.css');
+css('./styles.css');
 
 const app = choo();
 
@@ -26,7 +31,6 @@ function dependencyStore(state, emitter) {
   });
 
   emitter.on('hideNode', function (node) {
-    console.log('hideNode', node);
     const path = [node.data.id];
     let currNode = node;
 
@@ -36,10 +40,10 @@ function dependencyStore(state, emitter) {
     }
 
     path.reverse().slice(1).forEach(nodeId => {
-      currNode = currNode.data.children.filter(child => child.id === nodeId)[0];
+      if (currNode.children && currNode.children.length > 0) {
+        currNode = currNode.children.filter(child => child.id === nodeId)[0];
+      }
     });
-
-    console.log('currNode', currNode);
 
     if (currNode.children) {
       currNode._children = currNode.children;

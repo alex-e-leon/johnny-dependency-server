@@ -16,7 +16,7 @@ const d3Link = d3.linkHorizontal()
 
 const linkClass = css`
   :host {
-    stroke: black;
+    stroke: white;
     fill: none;
   }
 `;
@@ -73,7 +73,7 @@ function createComponent() {
     const nodeElement = html`
       <g
         transform="translate(${node.y} ,${node.x})"
-        className="node is-${status} ${hasChildren ? ' has-children' : ''}"
+        class="node is-${status} ${hasChildren ? ' has-children' : ''}"
       >
         <circle r="4.5" onclick="${hideNode}"/>
         <text x="${showChildren ? -10 : 10}" dy=".35em" textAnchor="${showChildren ? 'end' : 'start'}" fillOpacity="1">
