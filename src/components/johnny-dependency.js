@@ -3,27 +3,16 @@ const componentList = require('./component-list');
 const treeGraph = require('./tree-graph');
 
 function johnnyDependency(state, emit) {
-  const componentListProps = {
-    components: '',
-    onSelectComponent: changeComponent
-  };
-
-  const treeGraphProps = {
-    components: ''
-  };
-
   return html`
-    <div className="johnny-depp">
-      ${componentList(componentListProps)}
-      <div className="johnny-depp__graph">
-        ${treeGraph(treeGraphProps)}
+    <body>
+      <div className="johnny-depp">
+        ${componentList(state.components, state.activeComponent, emit)}
+        <div className="johnny-depp__graph">
+          ${treeGraph(state.components[state.activeComponent], emit)}
+        </div>
       </div>
-    </div>
+    </body>
   `;
-
-  function changeComponent(component) {
-    emit('changeComponent', component);
-  }
 }
 
 module.exports = johnnyDependency;
