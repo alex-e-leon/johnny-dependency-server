@@ -14,8 +14,9 @@
   "dependencies": {
     "bankai": "^8.1.1",
     "bel": "^5.0.1",
+    "choo": "^5.6.2",
+    "choo-log": "^6.1.2",
     "got": "^7.0.0",
-    "json-stream-to-object": "^1.1.0",
     "merry": "^5.3.2",
     "nodemon": "^1.11.0",
     "sheetify": "^6.1.0"
@@ -24,13 +25,12 @@
     "ava": "^0.20.0",
     "dev-null": "^0.1.1",
     "eslint": "^3.19.0",
-    "eslint-config-airbnb": "^15.0.1",
+    "eslint-config-xo-space": "^0.16.0",
     "eslint-plugin-ava": "^4.2.1",
-    "eslint-plugin-import": "^2.6.0",
-    "eslint-plugin-jsx-a11y": "^5.1.0",
-    "eslint-plugin-react": "^7.1.0",
     "get-server-port": "^1.0.0",
+    "install": "^0.10.1",
     "nock": "^9.0.13",
+    "npm": "^5.0.4",
     "nyc": "^11.0.3"
   }
 }

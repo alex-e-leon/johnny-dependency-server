@@ -1,5 +1,7 @@
 {
-  "env": {
-    "browser": true
+  "extends": "xo-space/browser",
+  "globals": {
+    "require": true,
+    "module": true
   }
 }
