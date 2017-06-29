@@ -6,6 +6,9 @@
   "repository": "git@github.com:domain-group/johnny-dependency-server.git",
   "author": " ",
   "license": "MIT",
+  "engines": {
+    "node": "~8"
+  },
   "scripts": {
     "start": "NODE_ENV=development nodemon ./src/index.js | merry",
     "start:prod": "NODE_ENV=production node ./src/index.js",
