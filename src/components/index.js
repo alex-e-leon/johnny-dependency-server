@@ -26,7 +26,8 @@ function dependencyStore(state, emitter) {
   });
 
   emitter.on('hideNode', function (node) {
-    const path = [node.id];
+    console.log('hideNode', node);
+    const path = [node.data.id];
     let currNode = node;
 
     while (currNode.parent) {
@@ -35,8 +36,10 @@ function dependencyStore(state, emitter) {
     }
 
     path.reverse().slice(1).forEach(nodeId => {
-      currNode = currNode.children.filter(child => child.id === nodeId)[0];
+      currNode = currNode.data.children.filter(child => child.id === nodeId)[0];
     });
+
+    console.log('currNode', currNode);
 
     if (currNode.children) {
       currNode._children = currNode.children;
