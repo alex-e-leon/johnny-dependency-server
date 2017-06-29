@@ -30,12 +30,13 @@ const graphClass = css`
 `;
 
 function johnnyDependency(state, emit) {
+  const currentComponent = state.components[state.activeComponent];
   return html`
     <body>
       <div class="${containerClass}">
         ${componentList(state.components, state.activeComponent, emit)}
         <div class="${graphClass}">
-          ${tree.render({component: state.components[state.activeComponent], emit: emit})}
+          ${currentComponent && tree.render({component: currentComponent, emit: emit})}
         </div>
       </div>
     </body>

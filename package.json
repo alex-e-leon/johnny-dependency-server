@@ -17,7 +17,6 @@
   },
   "dependencies": {
     "bankai": "^8.1.1",
-    "bel": "^5.0.1",
     "choo": "yoshuawuyts/choo#v6",
     "choo-log": "^6.1.2",
     "cssnano": "^3.10.0",

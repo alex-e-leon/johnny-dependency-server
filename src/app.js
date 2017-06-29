@@ -53,6 +53,10 @@ module.exports = options => {
   });
 
   app.route('GET', '/package/*', (req, res, ctx) => {
+    if (req.headers['content-type'] !== 'application/json') {
+      return assets.html().pipe(res);
+    }
+
     try {
       const pkg = npa(ctx.params.wildcard);
       const npmName = `${pkg.name}@${pkg.fetchSpec}`;
