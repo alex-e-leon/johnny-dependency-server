@@ -4,7 +4,6 @@ const logger = require('pino')();
 const cluster = require('cluster');
 const numCpus = require('os').cpus().length;
 
-console.log('xxx', process.env.NODE_ENV);
 if (cluster.isMaster && process.env.NODE_ENV === 'production') {
   logger.info(`Master ${process.pid} is running`);
 
