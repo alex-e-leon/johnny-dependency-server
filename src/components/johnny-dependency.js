@@ -1,9 +1,8 @@
 const html = require('choo/html');
 const css = require('sheetify');
 const componentList = require('./component-list');
-const createTree = require('./tree/index');
-
-var tree = createTree();
+const summary = require('./summery');
+const tree = require('./tree/index');
 
 const containerClass = css`
   :host {
@@ -36,7 +35,8 @@ function johnnyDependency(state, emit) {
       <div class="${containerClass}">
         ${componentList(state.components, state.activeComponent, emit)}
         <div class="${graphClass}">
-          ${currentComponent && tree.render({component: currentComponent, emit: emit})}
+          ${summary(currentComponent)}
+          ${currentComponent && tree(currentComponent, emit)}
         </div>
       </div>
     </body>

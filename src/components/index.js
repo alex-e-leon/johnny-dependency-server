@@ -36,7 +36,7 @@ function dependencyStore(state, emitter) {
   });
 
   emitter.on(state.events.HIDENODE, function (node) {
-    const path = [node.data.id];
+    const path = [node.id];
     let currNode = node;
 
     while (currNode.parent) {
@@ -44,10 +44,10 @@ function dependencyStore(state, emitter) {
       currNode = currNode.parent;
     }
 
+    currNode = state.components[state.activeComponent];
+
     path.reverse().slice(1).forEach(nodeId => {
-      if (currNode.children && currNode.children.length > 0) {
-        currNode = currNode.children.filter(child => child.id === nodeId)[0];
-      }
+      currNode = currNode.children.filter(child => child.id === nodeId)[0];
     });
 
     if (currNode.children) {
