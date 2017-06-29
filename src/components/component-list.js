@@ -20,8 +20,9 @@ function componentStatus(component) {
 function componentList(components, activeComponent, emit) {
   const componentsItems = components.map((component, index) => {
     const className = 'johnny-depp__list-item' + (activeComponent === index ? ' is-active' : '');
+
     return html`
-      <li class="${className}" onclick="${changeComponent}">
+      <li class="${className}" onclick="${changeComponent(index)}">
         ${component.name}
         ${componentStatus(component)}
       </li>
@@ -38,8 +39,10 @@ function componentList(components, activeComponent, emit) {
     </div>
   `;
 
-  function changeComponent(component) {
-    emit('changeComponent', component);
+  function changeComponent(index) {
+    return function () {
+      emit('changeComponent', index);
+    };
   }
 }
 
