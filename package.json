@@ -7,9 +7,10 @@
   "author": " ",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon ./src/index.js | merry",
+    "start": "NODE_ENV=development nodemon ./src/index.js | merry",
+    "start:prod": "NODE_ENV=production node ./src/index.js",
     "lint": "eslint ./src ./test",
-    "test": "nyc ava --verbose && yarn run lint"
+    "test": "NODE_ENV=test nyc ava --verbose && yarn run lint"
   },
   "dependencies": {
     "bankai": "^8.1.1",
@@ -18,6 +19,7 @@
     "json-stream-to-object": "^1.1.0",
     "merry": "^5.3.2",
     "nodemon": "^1.11.0",
+    "pino": "^4.6.0",
     "sheetify": "^6.1.0"
   },
   "devDependencies": {
