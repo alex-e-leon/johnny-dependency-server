@@ -1,5 +1,7 @@
 if (process.env.NODE_ENV === 'development') {
-  require('dotenv-safe').load();
+  require('dotenv-safe').load({
+    allowEmptyValues: true
+  });
 }
 
 const createApp = require('./app');
