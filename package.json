@@ -24,6 +24,7 @@
     "got": "^7.0.0",
     "johnny-dependency": "^0.3.0",
     "lodash": "^4.17.4",
+    "lru-cache": "^4.1.1",
     "merry": "^5.3.2",
     "nanocomponent": "^5.0.3",
     "nodemon": "^1.11.0",

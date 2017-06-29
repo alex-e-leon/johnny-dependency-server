@@ -3,9 +3,11 @@ const got = require('got');
 const bankai = require('bankai');
 const npa = require('npm-package-arg');
 const johnny = require('johnny-dependency');
+const lru = require('lru-cache');
 
 module.exports = options => {
   const app = merry(options);
+  const cache = lru({max: 50000});
   const assets = bankai('./src/components/index.js', {debug: true, watch: true});
 
   assets.on('js-bundle', function () {
@@ -47,18 +49,29 @@ module.exports = options => {
   app.route('GET', '/package/*', (req, res, ctx) => {
     try {
       const pkg = npa(ctx.params.wildcard);
-      ctx.log.debug(`Fetching deps for ${pkg.name}@${pkg.fetchSpec}.`);
+      const npmName = `${pkg.name}@${pkg.fetchSpec}`;
 
-      johnny({
-        name: pkg.name,
-        version: pkg.fetchSpec
-      }, {
-        auth: {
-          token: process.env.NPM_AUTH_TOKEN
-        }
-      }).then(deps => {
-        ctx.send(200, deps);
-      });
+      ctx.log.debug(`Fetching deps for ${npmName}.`);
+
+      const cachedDeps = cache.get(npmName);
+
+      if (cachedDeps) {
+        ctx.log.debug(`Found ${npmName} in cache.`);
+        ctx.send(200, cachedDeps);
+      } else {
+        ctx.log.debug(`Fetching ${npmName} from npm.`);
+        johnny({
+          name: pkg.name,
+          version: pkg.fetchSpec
+        }, {
+          auth: {
+            token: process.env.NPM_AUTH_TOKEN
+          }
+        }).then(deps => {
+          cache.set(npmName, deps);
+          ctx.send(200, deps);
+        });
+      }
     } catch (err) {
       ctx.log.error(err);
       ctx.send(500, 'Something went wrong with the request.');
