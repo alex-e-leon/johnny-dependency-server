@@ -11,7 +11,7 @@ const numCpus = require('os').cpus().length;
 if (cluster.isMaster && process.env.NODE_ENV === 'production') {
   logger.info(`Master ${process.pid} is running`);
 
-  for (let i = 0; i < numCpus; i += 1) {
+  for (let i = 0; i < (Number(process.env.MAX_WORKERS) || numCpus); i += 1) {
     cluster.fork();
   }
 
