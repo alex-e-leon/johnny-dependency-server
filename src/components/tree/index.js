@@ -3,9 +3,8 @@ const html = require('choo/html');
 const d3 = require('d3');
 const noop = require('lodash/noop');
 const merge = require('lodash/merge');
-const createTreeNode = require('./tree-node');
+const treeNode = require('./tree-node');
 
-const treeNode = createTreeNode();
 const margin = {top: 20, right: 120, bottom: 20, left: 120};
 const width = 960 - margin.right - margin.left;
 const height = 560 - margin.top - margin.bottom;
@@ -39,7 +38,7 @@ function createComponent() {
     return html`
       <svg width="${width + margin.right + margin.left}" height="${height + margin.top + margin.bottom}">
         <g transform="translate(${margin.left}, ${margin.top})">
-          ${treeNode.render({node: node, emit: emit})}
+          ${treeNode(node, emit)}
         </g>
       </svg>
     `;
