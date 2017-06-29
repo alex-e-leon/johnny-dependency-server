@@ -4,7 +4,15 @@ const bankai = require('bankai');
 
 module.exports = options => {
   const app = merry(options);
-  const assets = bankai('./src/components/index.js');
+  const assets = bankai('./src/components/index.js', {debug: true, watch: true});
+
+  assets.on('js-bundle', function () {
+    app.log.info('bundle:js');
+  });
+
+  assets.on('css-bundle', function () {
+    app.log.info('bundle:css');
+  });
 
   app.route('GET', '/', (req, res) => {
     assets.html().pipe(res);

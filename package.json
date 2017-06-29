@@ -17,10 +17,13 @@
   "dependencies": {
     "bankai": "^8.1.1",
     "bel": "^5.0.1",
-    "choo": "^5.6.2",
+    "choo": "yoshuawuyts/choo#v6",
     "choo-log": "^6.1.2",
+    "d3": "^4.9.1",
     "got": "^7.0.0",
+    "lodash": "^4.17.4",
     "merry": "^5.3.2",
+    "nanocomponent": "^5.0.3",
     "nodemon": "^1.11.0",
     "pino": "^4.6.0",
     "sheetify": "^6.1.0"
@@ -35,6 +38,7 @@
     "install": "^0.10.1",
     "nock": "^9.0.13",
     "npm": "^5.0.4",
-    "nyc": "^11.0.3"
+    "nyc": "^11.0.3",
+    "rosie": "^1.6.0"
   }
 }
