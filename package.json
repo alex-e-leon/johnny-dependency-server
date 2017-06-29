@@ -27,7 +27,7 @@
     "lodash": "^4.17.4",
     "lru-cache": "^4.1.1",
     "merry": "^5.3.2",
-    "nanocomponent": "^5.0.3",
+    "microcomponent": "^3.1.6",
     "nodemon": "^1.11.0",
     "npm-package-arg": "^5.1.2",
     "pino": "^4.6.0",

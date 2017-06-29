@@ -1,6 +1,8 @@
 const html = require('choo/html');
 const componentList = require('./component-list');
-const treeGraph = require('./tree-graph');
+const createTree = require('./tree/index');
+
+var tree = createTree();
 
 function johnnyDependency(state, emit) {
   return html`
@@ -8,7 +10,7 @@ function johnnyDependency(state, emit) {
       <div className="johnny-depp">
         ${componentList(state.components, state.activeComponent, emit)}
         <div className="johnny-depp__graph">
-          ${treeGraph(state.components[state.activeComponent], emit)}
+          ${tree.render({component: state.components[state.activeComponent], emit: emit})}
         </div>
       </div>
     </body>

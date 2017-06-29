@@ -21,7 +21,7 @@ function componentList(components, activeComponent, emit) {
   const componentsItems = components.map((component, index) => {
     const className = 'johnny-depp__list-item' + (activeComponent === index ? ' is-active' : '');
     return html`
-      <li class=${className} onClick=${changeComponent}>
+      <li class="${className}" onclick="${changeComponent}">
         ${component.name}
         ${componentStatus(component)}
       </li>
