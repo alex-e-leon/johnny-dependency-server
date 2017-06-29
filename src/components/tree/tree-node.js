@@ -73,20 +73,20 @@ function link(node, child) {
   return html`<path d="${linkPath}" class="${linkClass} is-${status}" />`;
 }
 
-function childNodes(node, emit) {
+function childNodes(node, root) {
   return node.children.map(child => ([
     link(node, child),
-    treeNode(child, emit)
+    treeNode(child, root)
   ]));
 }
 
-function treeNode(node, emit) {
+function treeNode(node, root) {
   const showChildren = (node.children && node.children.length > 0);
   const hasChildren = showChildren || (node._children && node._children.length > 0);
   const status = (node.parent) ? componentStatus(node.data) : dependencyStatus(node.data);
 
-  function hideNode() {
-    emit('hideNode', node);
+  function toggleNode() {
+    root.emit('toggleNode', node);
   }
 
   const nodeElement = html`
@@ -94,8 +94,8 @@ function treeNode(node, emit) {
       transform="translate(${node.y} ,${node.x})"
       class="${nodeClass} is-${status} ${hasChildren ? ' has-children' : ''}"
     >
-      <circle r="4.5" onclick="${hideNode}"/>
-      <text x="${showChildren ? -10 : 10}" dy=".35em" textAnchor="${showChildren ? 'end' : 'start'}" fillOpacity="1">
+      <circle r="4.5" onclick="${toggleNode}"/>
+      <text x="${showChildren ? -10 : 10}" dy=".35em" text-anchor="${showChildren ? 'end' : 'start'}" fill-opacity="1">
         ${node.data.name}
       </text>
     </g>
@@ -103,7 +103,7 @@ function treeNode(node, emit) {
 
   return html`
     <g>
-      ${showChildren && childNodes(node, emit)}
+      ${showChildren && childNodes(node, root)}
       ${nodeElement}
     </g>
   `;

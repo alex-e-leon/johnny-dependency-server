@@ -23,7 +23,6 @@ function dependencyStore(state, emitter) {
   state.events.ADDDEPENDENCY = 'addDependency';
   state.events.GETCOMPONENT = 'getComponent';
   state.events.CHANGECOMPONENT = 'changeComponent';
-  state.events.HIDENODE = 'hideNode';
 
   emitter.on(state.events.ADDDEPENDENCY, function (count) {
     state.count += count;
@@ -32,32 +31,6 @@ function dependencyStore(state, emitter) {
 
   emitter.on(state.events.CHANGECOMPONENT, function (component) {
     state.activeComponent = component;
-    emitter.emit('render');
-  });
-
-  emitter.on(state.events.HIDENODE, function (node) {
-    const path = [node.id];
-    let currNode = node;
-
-    while (currNode.parent) {
-      path.push(currNode.parent.id);
-      currNode = currNode.parent;
-    }
-
-    currNode = state.components[state.activeComponent];
-
-    path.reverse().slice(1).forEach(nodeId => {
-      currNode = currNode.children.filter(child => child.id === nodeId)[0];
-    });
-
-    if (currNode.children) {
-      currNode._children = currNode.children;
-      currNode.children = null;
-    } else {
-      currNode.children = currNode._children;
-      currNode._children = null;
-    }
-
     emitter.emit('render');
   });
 

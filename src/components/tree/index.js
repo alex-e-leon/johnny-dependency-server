@@ -9,39 +9,62 @@ const margin = {top: 20, right: 120, bottom: 20, left: 120};
 const width = 960 - margin.right - margin.left;
 const height = 560 - margin.top - margin.bottom;
 
+function buildTree(component) {
+  const source = merge(component, {x0: height / 2, y0: 0});
+  const tree = d3.tree().size([height, width]);
+  return tree(d3.hierarchy(source));
+}
+
 function createComponent() {
   const tree = microcomponent({
     name: 'tree',
     props: {
-      component: {},
-      emit: noop
+      emit: noop,
+      component: null
+    },
+    state: {
+      node: null
     }
   });
 
   tree.on('update', update);
   tree.on('render', render);
+  tree.on('toggleNode', toggleNode);
 
   return tree;
 
   function update(props) {
-    return props.component !== this.props.component;
+    if (props.component !== this.props.component) {
+      this.state.node = null;
+    }
+
+    return true;
   }
 
   function render() {
-    const emit = this.props.emit;
-
-    const source = merge(this.props.component, {x0: height / 2, y0: 0});
-    const tree = d3.tree().size([height, width]);
-
-    const node = tree(d3.hierarchy(source));
+    if (this.state.node === null) {
+      this.state.node = buildTree(this.props.component);
+    }
 
     return html`
       <svg width="${width + margin.right + margin.left}" height="${height + margin.top + margin.bottom}">
         <g transform="translate(${margin.left}, ${margin.top})">
-          ${treeNode(node, emit)}
+          ${this.state.node && treeNode(this.state.node, this)}
         </g>
       </svg>
     `;
+  }
+
+  function toggleNode(node) {
+    if (node.children) {
+      node._children = node.children;
+      node.children = null;
+    } else {
+      node.children = node._children;
+      node._children = null;
+    }
+
+    this.props.emit('render');
   }
 }
 
