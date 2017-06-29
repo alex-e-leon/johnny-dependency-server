@@ -37,15 +37,18 @@ function count(component, status) {
   }, 0);
 }
 
-function summary(component) {
-  console.log('COMPONENT', component);
-  const latest = component ? count(component, 'latest') : 0;
-  const patch = component ? count(component, 'patch-update') : 0;
-  const minor = component ? count(component, 'minor-update') : 0;
-  const major = component ? count(component, 'major-update') : 0;
+function summary(comp) {
+  console.log(comp);
+  const component = comp || {};
+  const latest = count(component, 'latest');
+  const patch = count(component, 'patch-update');
+  const minor = count(component, 'minor-update');
+  const major = count(component, 'major-update');
 
   return html`
     <div>
+      <p>Package</p>
+      <h1>${component.name} @ ${component.version}</h1>
       <p>Healthy Packages ${latest}</p>
       <p>Needs minor update ${minor + patch}</p>
       <p>Needs major update ${major}</p>

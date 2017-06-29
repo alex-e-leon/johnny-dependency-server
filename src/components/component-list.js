@@ -35,7 +35,7 @@ function componentList(components, activeComponent, emit) {
       <form name="search" onsubmit="${handleSubmit}">
         <input name="packageName" />
       </form>
-      <h1 class="johnny-depp__title">All Components</h1>
+      <h2 class="johnny-depp__title">All Components</h2>
       <ul class="johnny-depp__list">
         ${componentsItems}
       </ul>
