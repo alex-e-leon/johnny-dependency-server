@@ -28,5 +28,5 @@ if (cluster.isMaster && process.env.NODE_ENV === 'production') {
   });
 } else {
   const app = createApp();
-  app.listen(3000);
+  app.listen(Number(process.env.PORT));
 }
