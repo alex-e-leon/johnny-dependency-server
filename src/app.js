@@ -56,7 +56,7 @@ module.exports = options => {
       const cachedDeps = cache.get(npmName);
 
       if (cachedDeps) {
-        ctx.log.debug(`Found ${npmName} in cache.`);
+        ctx.log.debug(`Found ${npmName} in memory cache.`);
         ctx.send(200, cachedDeps);
       } else {
         ctx.log.debug(`Fetching ${npmName} from npm.`);
