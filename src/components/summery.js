@@ -2,31 +2,14 @@ const html = require('choo/html');
 const css = require('sheetify');
 const componentStatus = require('./util/component-status');
 
-const containerClass = css`
-  :host {
-    top: 0;
-    left: 0;
-    position: absolute;
-    display: table;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.1);
-    border: solid 1px rgba(255, 255, 255, 0.18);
-  }
-`;
-
-const graphClass = css`
-  :host {
-    fill: white;
-    display: table-cell;
-    width: 70%;
-    vertical-align: top;
-    font-size: 18px;
-    font-weight: 600;
-  }
-`;
-
 const summaryLineClass = css`
+  :host {
+    display: inline-block;
+    margin-right: 10px;
+  }
+`;
+
+const summaryContainerClass = css`
   :host {
     display: inline-block;
     margin-right: 10px;

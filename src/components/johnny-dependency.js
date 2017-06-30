@@ -19,9 +19,10 @@ const graphClass = css`
   :host {
     fill: white;
     flex: 1 1 auto;
-    padding: 20px;
     font-size: 18px;
     font-weight: 600;
+    display: flex;
+    flex-direction: column;
   }
 `;
 

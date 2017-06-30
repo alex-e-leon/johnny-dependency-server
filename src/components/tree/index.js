@@ -1,6 +1,7 @@
 var microcomponent = require('microcomponent');
 const html = require('choo/html');
 const d3 = require('d3');
+const css = require('sheetify');
 const noop = require('lodash/noop');
 const merge = require('lodash/merge');
 const treeNode = require('./tree-node');
@@ -8,6 +9,12 @@ const treeNode = require('./tree-node');
 const margin = {top: 20, right: 120, bottom: 20, left: 120};
 const width = 960 - margin.right - margin.left;
 const height = 560 - margin.top - margin.bottom;
+
+const treeClass = css`
+  :host {
+    flex: 1 1 auto;
+  }
+`;
 
 function createComponent() {
   const tree = microcomponent({
@@ -36,7 +43,7 @@ function createComponent() {
     const node = tree(d3.hierarchy(source));
 
     return html`
-      <svg width="${width + margin.right + margin.left}" height="${height + margin.top + margin.bottom}">
+      <svg class=${treeClass} viewBox="0 0 ${width + margin.right + margin.left} ${height + margin.top + margin.bottom}">
         <g transform="translate(${margin.left}, ${margin.top})">
           ${treeNode(node, emit)}
         </g>
