@@ -90,7 +90,7 @@ module.exports = options => {
           }
         });
 
-        cache.set(npmName, deps, 1);
+        cache.set(npmName, deps);
       }
 
       if (filter) {
