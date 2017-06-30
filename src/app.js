@@ -4,6 +4,7 @@ const bankai = require('bankai');
 const npa = require('npm-package-arg');
 const johnny = require('johnny-dependency');
 const lru = require('lru-cache');
+const {URL} = require('url');
 
 module.exports = options => {
   const app = merry(options);
@@ -52,9 +53,20 @@ module.exports = options => {
     got.stream.get('https://registry.npmjs.org/').on('error', error => ctx.send(500, error)).pipe(res);
   });
 
-  app.route('GET', '/package/*', (req, res, ctx) => {
-    if (req.headers['content-type'] !== 'application/json') {
-      return assets.html().pipe(res);
+  app.route('GET', '/api/package/*', async (req, res, ctx) => {
+    const referer = new URL(req.headers.referer);
+    const filter = referer.searchParams.get('filter');
+
+    function filterChildren(accumulator, child) {
+      if (child.name.includes(filter)) {
+        accumulator.push(child);
+
+        if (child.children) {
+          child.children = child.children.reduce(filterChildren, []);
+        }
+      }
+
+      return accumulator;
     }
 
     try {
@@ -63,29 +75,37 @@ module.exports = options => {
 
       ctx.log.debug(`Fetching deps for ${npmName}.`);
 
-      const cachedDeps = cache.get(npmName);
+      let deps = cache.get(npmName);
 
-      if (cachedDeps) {
+      if (deps) {
         ctx.log.debug(`Found ${npmName} in memory cache.`);
-        ctx.send(200, cachedDeps);
       } else {
         ctx.log.debug(`Fetching ${npmName} from npm.`);
-        johnny({
+        deps = await johnny({
           name: pkg.name,
           version: pkg.fetchSpec
         }, {
           auth: {
             token: process.env.NPM_AUTH_TOKEN
           }
-        }).then(deps => {
-          cache.set(npmName, deps);
-          ctx.send(200, deps);
         });
+
+        cache.set(npmName, deps, 1);
       }
+
+      if (filter) {
+        deps.children = deps.children.reduce(filterChildren, []);
+      }
+
+      ctx.send(200, deps);
     } catch (err) {
       ctx.log.error(err);
       ctx.send(500, 'Something went wrong with the request.');
     }
+  });
+
+  app.route('GET', '/package/*', async (req, res) => {
+    return assets.html().pipe(res);
   });
 
   app.route('default', (req, res, ctx) => {
