@@ -51,7 +51,7 @@ function dependencyStore(state, emitter) {
   });
 
   function fetchComponent(url) {
-    fetch(url, {
+    fetch(`/api${url}`, {
       headers: {
         'content-type': 'application/json'
       }
