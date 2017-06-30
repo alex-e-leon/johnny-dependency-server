@@ -5,15 +5,45 @@ const componentStatus = require('./util/component-status');
 const summaryLineClass = css`
   :host {
     display: inline-block;
-    margin-right: 10px;
+    margin-right: 40px;
+    font-weight: normal;
+  }
+`;
+
+const summaryAmountClass = css`
+  :host {
+    font-weight: bold;
+    font-size: 28px;
+    position: relative;
+    margin-left: 4px;
+    top: 3px;
   }
 `;
 
 const summaryContainerClass = css`
   :host {
-    display: inline-block;
-    margin-right: 10px;
+    padding: 35px;
+    border-bottom: solid 1px rgba(208, 211, 217, 0.22);
   }
+
+  :host h1 {
+    font-size: 28px;
+    margin-top: 2px;
+  }
+
+  :host p {
+    font-size: 12px;
+    text-transform: uppercase;
+    opacity: 0.64;
+    margin: 0;
+  }
+`;
+
+const statusContainerClass = css`
+  :host {
+    padding: 10px 35px;
+  }
+
 `;
 
 function count(component, status) {
@@ -37,11 +67,15 @@ function summary(comp) {
 
   return html`
     <div>
-      <p>Package</p>
-      <h1>${component.name} @ ${component.version}</h1>
-      <p class=${summaryLineClass}>Healthy Packages ${latest}</p>
-      <p class=${summaryLineClass}>Needs minor update ${minor + patch}</p>
-      <p class=${summaryLineClass}>Needs major update ${major}</p>
+      <div class=${summaryContainerClass}>
+        <p>Package</p>
+        <h1>${component.name} @ ${component.version}</h1>
+      </div>
+      <div class=${statusContainerClass}>
+        <p class=${summaryLineClass}>Healthy Packages <span class=${summaryAmountClass}>${latest}</span></p>
+        <p class=${summaryLineClass}>Needs minor update <span class=${summaryAmountClass}>${minor + patch}</span></p>
+        <p class=${summaryLineClass}>Needs major update <span class=${summaryAmountClass}>${major}</span></p>
+      </div>
     </div>
   `;
 }
