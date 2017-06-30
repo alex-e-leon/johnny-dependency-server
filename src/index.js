@@ -34,7 +34,8 @@ if (cluster.isMaster && process.env.NODE_ENV === 'production') {
   });
 } else {
   const options = {
-    logLevel: process.env.NODE_ENV === 'production' ? 'info' : 'debug'
+    // LogLevel: process.env.NODE_ENV === 'production' ? 'info' : 'debug'
+    logLevel: 'debug'
   };
 
   const app = createApp(options);
