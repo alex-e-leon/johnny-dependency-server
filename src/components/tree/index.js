@@ -13,6 +13,7 @@ const height = 560 - margin.top - margin.bottom;
 const treeClass = css`
   :host {
     flex: 1 1 auto;
+    font-size: 15px;
   }
 `;
 

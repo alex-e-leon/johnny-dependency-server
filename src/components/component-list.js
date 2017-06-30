@@ -2,6 +2,16 @@ const html = require('choo/html');
 const css = require('sheetify');
 const dependencyStatus = require('./util/dependency-status');
 
+const logoClass = css`
+  :host {
+    width: 100%;
+    position: relative;
+    left: -5px;
+    margin: 5px 0 15px;
+    opacity: 0.85;
+  }
+`;
+
 const listContainer = css`
   :host {
     background-color: rgba(0, 0, 0, 0.1);
@@ -31,14 +41,14 @@ const textInput = css`
 
 const list = css`
   :host {
-    padding: 0;
+    padding: 0 0 0 4px;
   }
 `;
 
 const titleCss = css`
   :host {
     font-size: 22px;
-    margin: 20px 0 10px;
+    margin: 20px 0 10px 1px;
   }
 `;
 
@@ -132,7 +142,7 @@ function componentList(components, activeComponent, emit) {
 
   return html`
     <div class=${listContainer}>
-      <img class="johnny-depp__logo" src="/static/img/jd_logo.png"/>
+      <img class=${logoClass} src="/static/johnny-dependency.png"/>
       <form name="search" onsubmit="${handleSubmit}">
         <input class=${textInput} name="packageName" placeholder="Search for a component" />
       </form>
